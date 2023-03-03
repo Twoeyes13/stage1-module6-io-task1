@@ -1,10 +1,11 @@
 package com.epam.mjc.io;
 
 import java.io.*;
+import java.util.logging.*;
 
 
 public class FileReader {
-
+private Logger logger;
     public Profile getDataFromFile(File file) {
         String text = "";
         try (FileInputStream input = new FileInputStream(file)) {
@@ -12,10 +13,8 @@ public class FileReader {
             while ((ch = input.read()) != -1) {
                 text += String.valueOf((char) ch);
             }
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
         } catch (IOException e) {
-            System.err.println(e);
+            logger.log(Level.WARNING,e.getMessage());
         }
 
         String[] lines = text.split("\\R");
